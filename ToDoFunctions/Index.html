@@ -8,9 +8,9 @@
 <body>
     <h2>To Do List Using Azure Functions</h2>
     <div>
-        <input type="button" onclick="location.href='http://localhost:7071/api/AddToDoItem';" value="New To Do Item" />
+        <input type="button" onclick="location.href='/api/AddToDoItem';" value="New To Do Item" />
         <br />
-        <input type="button" onclick="location.href = 'http://localhost:7071/api/ToDoHistory';" value="View All To Do Items" />
+        <input type="button" onclick="location.href = '/api/ToDoHistory';" value="View All To Do Items" />
     </div>
     <div id="todolist"></div>
 </body>
@@ -38,7 +38,7 @@
                 p.innerHTML += "<br />";
                 p.innerHTML += "Due: " + dateTime;
                 p.innerHTML += "<br />";
-                p.innerHTML += "<button " + "onclick=\"location.href='http://localhost:7071/api/CompleteToDoItem/" + data[i].PartitionKey +"';\"" + ">Complete</button>";
+                p.innerHTML += "<button " + "onclick=\"location.href='/api/CompleteToDoItem/" + data[i].PartitionKey +"';\"" + ">Complete</button>";
                 p.innerHTML += "<button>Edit</button>";
                 div.append(p);
                 list.append(div);

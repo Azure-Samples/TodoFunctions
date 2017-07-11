@@ -16,7 +16,7 @@ namespace ToDoFunctions
         public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(@"c:\users\streamer\Source\Repos\ToDoFunctions\ToDoFunctions\Index.html", FileMode.Open);
+            var stream = new FileStream("Index.html", FileMode.Open);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;
