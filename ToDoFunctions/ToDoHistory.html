@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h2>To Do List Using Azure Functions - History</h2>
+    <div>
+        <input type="button" onclick="location.href='http://localhost:7071/api/AddToDoItem';" value="New To Do Item" />
+        <br />
+        <input type="button" onclick="location.href = 'http://localhost:7071/api/HomePage';" value="View Current To Do Items" />
+    </div>
+    <div id="todolist"></div>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script>
+    window.onload = function () {
+        $.get("http://localhost:7071/api/GetAllToDoItems", function (data) {
+            $("#result").html(data);
+            console.log(data);
+            var list = $("#todolist");
+            for (var i = 0; i < data.length; i++){
+                var div = document.createElement("div");
+
+                var myDate = new Date(Date.parse(data[i].Due));
+                var dateTime = myDate.toLocaleString();
+
+                var p = document.createElement("p");
+                p.innerHTML = "Title: " + data[i].Title;
+                p.innerHTML += "<br />";
+                p.innerHTML += "Description: " + data[i].Description;
+                p.innerHTML += "<br />";
+                p.innerHTML += "Due: " + dateTime;
+                p.innerHTML += "<br />";
+                p.innerHTML += "Completed: " + data[i].IsComplete;
+                div.append(p);
+                list.append(div);
+            }
+        });
+    }
+</script>
