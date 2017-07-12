@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ToDoFunctions
 {
@@ -39,7 +40,7 @@ namespace ToDoFunctions
                 else if(req.Method == HttpMethod.Get)
                 {
                     var response = new HttpResponseMessage(HttpStatusCode.OK);
-                    var stream = new FileStream(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "AddToDo.html", FileMode.Open);
+                    var stream = new FileStream(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\AddToDo.html", FileMode.Open);
                     response.Content = new StreamContent(stream);
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
                     return response;

@@ -10,6 +10,7 @@ using System.Linq;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ToDoFunctions
 {
@@ -25,7 +26,7 @@ namespace ToDoFunctions
             outTable.ExecuteAsync(operation);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/Index.html", FileMode.Open);
+            var stream = new FileStream(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Index.html", FileMode.Open);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;
