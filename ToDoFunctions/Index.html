@@ -21,7 +21,7 @@
         crossorigin="anonymous"></script>
 <script>
     window.onload = function () {       
-        $.get("http://localhost:7071/api/GetToDoItems", function (data) {
+        $.get("/api/GetToDoItems", function (data) {
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
