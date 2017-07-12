@@ -3,6 +3,6 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "AzureWebJobsDashboard": "",
-    "MyTable": "DefaultEndpointsProtocol=https;AccountName=todofunctions;AccountKey=NXofOh4G+mv3D00H0Iw8noKkpg+1oOad53gKKZQKkY1CR2cVwLYAWBov5VEeXn0GKcaNBp+v5i1h3rZnbE/17Q==;EndpointSuffix=core.windows.net"
+    "MyTable": "<ConnectionString>"
   }
 }
