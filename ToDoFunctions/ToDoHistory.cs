@@ -15,10 +15,11 @@ namespace ToDoFunctions
     public static class ToDoHistory
     {
         [FunctionName("ToDoHistory")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log, ExecutionContext context)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ToDoHistory.html", FileMode.Open);
+            var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
+            var stream = new FileStream(path + "\\ToDoHistory.html", FileMode.Open);          
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;

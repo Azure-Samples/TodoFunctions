@@ -15,10 +15,11 @@ namespace ToDoFunctions
     public static class ReturnIndexPage
     {
         [FunctionName("HomePage")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log, ExecutionContext context)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Index.html", FileMode.Open);
+            var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
+            var stream = new FileStream(path + "\\Index.html", FileMode.Open);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;
