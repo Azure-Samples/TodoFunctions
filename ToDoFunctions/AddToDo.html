@@ -33,9 +33,9 @@
         var json = JSON.stringify($(this).serializeArray())
         console.log(customJson);
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:7071/api/AddToDoItem", true);
+        xhr.open("POST", "/api/AddToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(customJson);
-        window.location.href = "http://localhost:7071/api/HomePage";
+        window.location.href = "/api/HomePage";
     });
 </script>
