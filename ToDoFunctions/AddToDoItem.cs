@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ToDoFunctions
 {
@@ -22,7 +23,7 @@ namespace ToDoFunctions
     {
         [FunctionName("AddToDoItem")]
         [StorageAccount("MyTable")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", "get")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", "get")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log, ExecutionContext context)
         {
             try
             {                
@@ -39,7 +40,8 @@ namespace ToDoFunctions
                 else if(req.Method == HttpMethod.Get)
                 {
                     var response = new HttpResponseMessage(HttpStatusCode.OK);
-                    var stream = new FileStream(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "AddToDo.html", FileMode.Open);
+                    var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
+                    var stream = new FileStream(path + "\\AddToDo.html", FileMode.Open);
                     response.Content = new StreamContent(stream);
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
                     return response;

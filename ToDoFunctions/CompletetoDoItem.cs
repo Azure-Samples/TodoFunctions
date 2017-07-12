@@ -10,13 +10,14 @@ using System.Linq;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ToDoFunctions
 {
     public static class CompleteToDoItem
     {
         [FunctionName("CompleteToDoItem")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "CompleteToDoItem/{id}")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, [Table("todotable", Connection = "MyTable")]CloudTable outTable, string id, TraceWriter log)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "CompleteToDoItem/{id}")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, [Table("todotable", Connection = "MyTable")]CloudTable outTable, string id, TraceWriter log, ExecutionContext context)
         {
             var item = inTable.Where(p => p.PartitionKey == id).FirstOrDefault();
             item.IsComplete = true;
@@ -25,7 +26,8 @@ namespace ToDoFunctions
             outTable.ExecuteAsync(operation);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/Index.html", FileMode.Open);
+            var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
+            var stream = new FileStream(path + "\\Index.html", FileMode.Open);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;
