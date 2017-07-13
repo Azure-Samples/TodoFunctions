@@ -3,16 +3,28 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>ToDo History</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body>
-    <h2>To Do List Using Azure Functions - History</h2>
-    <div>
-        <input type="button" onclick="location.href='/api/AddToDoItem';" value="New To Do Item" />
-        <br />
-        <input type="button" onclick="location.href = '/api/HomePage';" value="View Current To Do Items" />
+<body style="background-color: gainsboro">
+    <div class="container">
+        <div class="jumbotron" style="background-color: white">
+            <h2>To Do List Using Azure Functions - History</h2>
+            <p>
+                This web app uses a serverless technology called Azure Functions to serve up HTML pages to you.
+                <br />
+                <a class="btn btn-primary btn-group-sm" href="https://azure.microsoft.com/en-us/services/functions/?&WT.srch=1&WT.mc_id=AID623261_SEM_uJOA6Xlm&gclid=Cj0KCQjwtJzLBRC7ARIsAGMkOAmPEWSay_1JzokjrEhH8dXkKSaGRoiro02_WCjxKNeN4Q35FLi-GPcaAn6GEALw_wcB" role="button">Learn more about Azure Functions</a>
+            </p>
+            <p></p>
+        </div>
     </div>
-    <div id="todolist"></div>
+    <div id="todolist" class="container"></div>
+    <br />
+    <div class="container">
+        <input type="button" onclick="location.href='/api/AddToDoItem';" value="Add A New To Do Item" class="btn btn-lg btn-primary" />
+        <br />
+        <input type="button" onclick="location.href = '/api/HomePage';" value="View Current To Do Items" class="btn btn-sm btn-primary" />
+    </div>
 </body>
 </html>
 
@@ -25,23 +37,47 @@
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
-            for (var i = 0; i < data.length; i++){
-                var div = document.createElement("div");
+            for (var i = 0; i < data.length; i++) {
 
                 var myDate = new Date(Date.parse(data[i].Due));
-                var dateTime = myDate.toLocaleString();
 
-                var p = document.createElement("p");
-                p.innerHTML = "Title: " + data[i].Title;
-                p.innerHTML += "<br />";
-                p.innerHTML += "Description: " + data[i].Description;
-                p.innerHTML += "<br />";
-                p.innerHTML += "Due: " + dateTime;
-                p.innerHTML += "<br />";
-                p.innerHTML += "Completed: " + data[i].IsComplete;
-                div.append(p);
-                list.append(div);
+                var dateTime = myDate.getMonth() + "/" + myDate.getDay() + "/" + myDate.getFullYear();
+                var completionStatus = "";
+
+                if (data[i].IsComplete) {
+                    completionStatus = "Complete";
+                }
+                else if (!data[i].IsComplete) {
+                    completionStatus = "Not Complete";
+                }
+
+
+                var panelContainer = document.createElement("div");
+                panelContainer.classList.add("panel");
+                panelContainer.classList.add("panel-info");
+
+                var panelHeading = document.createElement("div");
+                panelHeading.classList.add("panel-heading");
+
+                var panelTitle = document.createElement("h3");
+                panelTitle.classList.add("panel-title");
+                panelTitle.innerHTML = data[i].Title;
+
+                var panelBody = document.createElement("div");
+                panelBody.classList.add("panel-body");
+                panelBody.innerHTML += data[i].Description;
+                panelBody.innerHTML += "<br />";
+                panelBody.innerHTML += "Due: " + dateTime;
+                panelBody.innerHTML += "<br />";
+                panelBody.innerHTML += "Completed: " + completionStatus;
+
+                panelHeading.append(panelTitle);
+                panelContainer.append(panelHeading);
+                panelContainer.append(panelBody);
+                list.append(panelContainer);
+
             }
+            
         });
     }
 </script>
