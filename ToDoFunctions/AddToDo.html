@@ -3,17 +3,20 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Add New Item</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body>
-    <form id="todoform">
-        Title: <input id="Title" name="Title" type="text" /><br />
-        Description: <input id="Description" name="Description" type="text" /><br />
-        Due: <input id="Due" name="Due" type="date" /><br />
-        Is Complete: <input id="IsComplete" name="IsComplete" type="checkbox" /><br />
-        <button type="submit">Add</button>
-    </form>
-    <div id="result">fasdfa</div>
+<body style="background-color: gainsboro"> 
+    <div class="container">
+        <div class="page-header"><h2>Add New To Do Item</h2></div>
+        <form id="todoform">
+            <input id="Title" name="Title" type="text" class="form-control" placeholder="Title" /><br />
+            <input id="Description" name="Description" type="text" class="form-control" placeholder="Description" /><br />
+            Due: <input id="Due" name="Due" type="date" class="form-control" /><br />          
+            <button type="submit" class="btn btn-default">Add</button>
+            <input type="button" onclick="location.href = '/api/HomePage';" value="Go Back" class="btn btn-default" />
+        </form>
+    </div>
 </body>
 </html>
 
@@ -38,4 +41,6 @@
         xhr.send(customJson);
         window.location.href = "/api/HomePage";
     });
+
+    
 </script>
