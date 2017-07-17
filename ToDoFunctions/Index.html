@@ -22,10 +22,10 @@
     <div id="todolist" class="container"></div>
     <br />
     <div class="container">
-        <input type="button" onclick="location.href='/api/AddToDoItem';" value="Add A New To Do Item" class="btn btn-lg btn-primary" />
+        <input type="button" onclick="location.href='/AddToDoItem';" value="Add A New To Do Item" class="btn btn-lg btn-primary" />
         <br />
         <br />
-        <input type="button" class="btn btn-sm btn-primary" onclick="location.href = '/api/ToDoHistory';" value="View To Do Item History" />
+        <input type="button" class="btn btn-sm btn-primary" onclick="location.href = '/ToDoHistory';" value="View To Do Item History" />
     </div>
 </body>
 </html>
@@ -41,7 +41,7 @@
         crossorigin="anonymous"></script>
 <script>
     window.onload = function () {       
-        $.get("/api/GetToDoItems", function (data) {
+        $.get("/GetToDoItems", function (data) {
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
@@ -69,7 +69,7 @@
                 panelBody.innerHTML += "<br />";
                 panelBody.innerHTML += "Due: " + dateTime;
                 panelBody.innerHTML += "<hr>";
-                panelBody.innerHTML += "<div class=\"btn-group\" role=\"group\">" + "<button type=\"button\" class=\"btn btn-default\" " + "onclick=\"location.href='/api/CompleteToDoItem/" + data[i].PartitionKey + "';\"" + ">Complete</button>" + "<button type=\"button\" class=\"btn btn-default\">Edit</button>" + "</div>";
+                panelBody.innerHTML += "<div class=\"btn-group\" role=\"group\">" + "<button type=\"button\" class=\"btn btn-default\" onclick=\"CompleteToDo(\'" + data[i].RowKey + "\');\"" + ">Complete</button>" + "<button type=\"button\" class=\"btn btn-default\">Edit</button>" + "<button type=\"button\" class=\"btn btn-default\" onclick=\"Delete(\'" + data[i].RowKey + "\');\"" + ">Delete</button>" + "</div>";
 
                 panelHeading.append(panelTitle);
                 panelContainer.append(panelHeading);
@@ -79,4 +79,31 @@
             }
         });        
     }
+
+    function CompleteToDo(rowKey) {
+        var xhr = new XMLHttpRequest();
+        var json = JSON.stringify(rowKey);       
+
+        xhr.open("POST", "/CompleteToDoItem", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.status == 200) {
+                window.location.reload();
+            }
+        };
+        xhr.send(json);    
+    };
+
+    function Delete(rowKey) {
+        var xhr = new XMLHttpRequest();
+        var json = JSON.stringify(rowKey);
+        xhr.open("POST", "/DeleteToDoItem", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.status == 200) {
+                window.location.reload();
+            }
+        };
+        xhr.send(json); 
+    };
 </script>

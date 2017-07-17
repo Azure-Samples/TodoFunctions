@@ -15,7 +15,7 @@ namespace ToDoFunctions
     public static class ReturnIndexPage
     {
         [FunctionName("HomePage")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log, ExecutionContext context)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")]HttpRequestMessage req, TraceWriter log, ExecutionContext context)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));

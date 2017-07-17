@@ -11,25 +11,29 @@ using System.IO;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace ToDoFunctions
 {
     public static class CompleteToDoItem
     {
         [FunctionName("CompleteToDoItem")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "CompleteToDoItem/{id}")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, [Table("todotable", Connection = "MyTable")]CloudTable outTable, string id, TraceWriter log, ExecutionContext context)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, [Table("todotable", Connection = "MyTable")]CloudTable outTable, TraceWriter log, ExecutionContext context)
         {
-            var item = inTable.Where(p => p.PartitionKey == id).FirstOrDefault();
+            var val = req.Content;
+            var id = val.ReadAsStringAsync().Result;
+            id = id.Replace("\"", "");
+
+            var retrieveOperation = TableOperation.Retrieve<ToDoItem>("ToDoItem", id);
+
+            var item = (ToDoItem)outTable.Execute(retrieveOperation).Result;
             item.IsComplete = true;
 
-            var operation = TableOperation.Replace(item);
-            outTable.ExecuteAsync(operation);
+            var updateOperation = TableOperation.Replace(item);
+            outTable.ExecuteAsync(updateOperation);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
-            var stream = new FileStream(path + "\\Index.html", FileMode.Open);
-            response.Content = new StreamContent(stream);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+
             return response;
         }
     }
