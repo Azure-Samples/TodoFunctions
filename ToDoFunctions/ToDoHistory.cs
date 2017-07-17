@@ -19,7 +19,7 @@ namespace ToDoFunctions
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
-            var stream = new FileStream(path + "\\ToDoHistory.html", FileMode.Open);          
+            var stream = new FileStream(path + "\\ToDoHistory.html", FileMode.Open);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
             return response;

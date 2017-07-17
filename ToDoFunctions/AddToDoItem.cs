@@ -58,9 +58,9 @@ namespace ToDoFunctions
         }
 
         private static void AddEntityToTable(ToDoItem item, ICollector<ToDoItem> outTable)
-        {          
-            item.PartitionKey = Guid.NewGuid().ToString();
-            item.RowKey = item.Title;
+        {
+            item.PartitionKey = "ToDoItem";              
+            item.RowKey = Guid.NewGuid().ToString();
             outTable.Add(item);
         }
     }

@@ -21,9 +21,9 @@
     <div id="todolist" class="container"></div>
     <br />
     <div class="container">
-        <input type="button" onclick="location.href='/api/AddToDoItem';" value="Add A New To Do Item" class="btn btn-lg btn-primary" />
+        <input type="button" onclick="location.href='/AddToDoItem';" value="Add A New To Do Item" class="btn btn-lg btn-primary" />
         <br />
-        <input type="button" onclick="location.href = '/api/HomePage';" value="View Current To Do Items" class="btn btn-sm btn-primary" />
+        <input type="button" onclick="location.href = '/HomePage';" value="View Current To Do Items" class="btn btn-sm btn-primary" />
     </div>
 </body>
 </html>
@@ -33,7 +33,7 @@
         crossorigin="anonymous"></script>
 <script>
     window.onload = function () {
-        $.get("/api/GetAllToDoItems", function (data) {
+        $.get("/GetAllToDoItems", function (data) {
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
