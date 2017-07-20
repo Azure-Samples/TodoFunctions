@@ -19,13 +19,9 @@ namespace ToDoFunctions
             var id = val.ReadAsStringAsync().Result;
             id = id.Replace("\"", "");
 
-            var retrieveOperation = TableOperation.Retrieve<ToDoItem>("ToDoItem", id);
+            var item = Utility.GetToDoItemFromTable(table, id);
 
-            var item = table.Execute(retrieveOperation).Result;
-
-            var deleteOperation = TableOperation.Delete((ToDoItem)item);
-
-            table.Execute(deleteOperation);
+            Utility.DeleteToDoItemFromTable(table, item);
 
             return req.CreateResponse(HttpStatusCode.OK);
         }

@@ -19,7 +19,7 @@ namespace ToDoFunctions
 
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(items), Encoding.UTF8, "application/json")
+                Content = new StringContent(Utility.SerializeToDoItemToJson(items), Encoding.UTF8, "application/json")
             };
 
             return response;
