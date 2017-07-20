@@ -18,19 +18,17 @@ namespace ToDoFunctions
     public static class CompleteToDoItem
     {
         [FunctionName("CompleteToDoItem")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, [Table("todotable", Connection = "MyTable")]CloudTable outTable, TraceWriter log, ExecutionContext context)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
         {
             var val = req.Content;
             var id = val.ReadAsStringAsync().Result;
             id = id.Replace("\"", "");
 
-            var retrieveOperation = TableOperation.Retrieve<ToDoItem>("ToDoItem", id);
 
-            var item = (ToDoItem)outTable.Execute(retrieveOperation).Result;
+            var item = Utility.GetToDoItemFromTable(table, id);
             item.IsComplete = true;
 
-            var updateOperation = TableOperation.Replace(item);
-            outTable.ExecuteAsync(updateOperation);
+            Utility.AddOrUpdateToDoItemToTable(table, item);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
 

@@ -23,45 +23,21 @@ namespace ToDoFunctions
     {
         [FunctionName("AddToDoItem")]
         [StorageAccount("MyTable")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", "get")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]ICollector<ToDoItem> outTable, TraceWriter log, ExecutionContext context)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
         {
             try
-            {                
-                if (req.Method == HttpMethod.Post)
-                {
-                    var val = req.Content;
-                    var json = val.ReadAsStringAsync().Result;
-                    var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(json);
-                    //outTable.Add(toDoItem);
-                    AddEntityToTable(toDoItem, outTable);
-                    return req.CreateResponse(HttpStatusCode.Created);
-                }
-
-                else if(req.Method == HttpMethod.Get)
-                {
-                    var response = new HttpResponseMessage(HttpStatusCode.OK);
-                    var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\"));
-                    var stream = new FileStream(path + "\\AddToDo.html", FileMode.Open);
-                    response.Content = new StreamContent(stream);
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
-                    return response;
-                }
-                else
-                {
-                    return req.CreateResponse(HttpStatusCode.InternalServerError);
-                }                            
-            }
-            catch (Exception)
             {
-                return req.CreateResponse(HttpStatusCode.InternalServerError);
-            }            
-        }
+                var val = req.Content;
+                var json = val.ReadAsStringAsync().Result;
+                var toDoItem = Utility.DeserializeJson(json);
+                Utility.AddOrUpdateToDoItemToTable(table, toDoItem);
 
-        private static void AddEntityToTable(ToDoItem item, ICollector<ToDoItem> outTable)
-        {
-            item.PartitionKey = "ToDoItem";              
-            item.RowKey = Guid.NewGuid().ToString();
-            outTable.Add(item);
+                return req.CreateResponse(HttpStatusCode.Created);                                              
+            }
+            catch (Exception e)
+            {
+                return req.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }            
         }
     }
 }

@@ -14,7 +14,7 @@
             <input id="Description" name="Description" type="text" class="form-control" placeholder="Description" /><br />
             Due: <input id="Due" name="Due" type="date" class="form-control" /><br />          
             <button type="submit" class="btn btn-default">Add</button>
-            <input type="button" onclick="location.href = '/HomePage';" value="Go Back" class="btn btn-default" />
+            <input type="button" onclick="location.href = '/Index';" value="Go Back" class="btn btn-default" />
         </form>
     </div>
 </body>
@@ -26,20 +26,19 @@
 <script>
     $("#todoform").submit(function (event) {
         event.preventDefault();
-        var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"";
-        if ($("#IsComplete").checked) {
-            customJson += "true\"}";
-        }
-        else {
-            customJson += "false\"}";
-        }
-        var json = JSON.stringify($(this).serializeArray())
-        console.log(customJson);
+
+        var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\"}";
+        var json = JSON.stringify($(this).serializeArray());
         var xhr = new XMLHttpRequest();
+
         xhr.open("POST", "/AddToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(customJson);
-        window.location.href = "/HomePage";
+        xhr.onreadystatechange = function () {
+            if (xhr.status == 201) {
+                window.location.href = "/Index";
+            }
+        };
+        xhr.send(customJson);      
     });
 
     
