@@ -33,6 +33,13 @@ namespace ToDoFunctions
 
         public static void AddOrUpdateToDoItemToTable(CloudTable table, ToDoItem item)
         {
+            if (item.RowKey == null || item.RowKey == "")
+            {
+                item.RowKey = Guid.NewGuid().ToString();
+                item.PartitionKey = "ToDoItem";
+            }
+                
+
             var saveOperation = TableOperation.InsertOrReplace(item);
             table.Execute(saveOperation);
         }
