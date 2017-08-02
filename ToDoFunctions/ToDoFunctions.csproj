@@ -12,6 +12,14 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Handlebars.js" Version="3.0.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="2.1.0-beta1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="2.1.0-beta1" />
@@ -26,28 +34,25 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Create.html">
+    <None Update="Pages\Create.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="404.html">
+    <None Update="Pages\404.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="History.html">
+    <None Update="Pages\History.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
     </None>
-    <None Update="Update.html">
+    <None Update="Pages\Update.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
