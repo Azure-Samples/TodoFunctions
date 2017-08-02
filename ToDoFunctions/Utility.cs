@@ -2,7 +2,11 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,7 +50,7 @@ namespace ToDoFunctions
 
         public static ToDoItem GetToDoItemFromTable(CloudTable table, string id)
         {
-            var retrieveOperation = TableOperation.Retrieve("ToDoItem", id);
+            var retrieveOperation = TableOperation.Retrieve<ToDoItem>("ToDoItem", id);
             var item = (ToDoItem)table.Execute(retrieveOperation).Result;
             return item;
         }
@@ -56,6 +60,36 @@ namespace ToDoFunctions
             var deleteOperation = TableOperation.Delete(item);
             table.Execute(deleteOperation);
 
+        }
+
+        public static HttpResponseMessage ReturnRequestedHttpResponsePage(string path)
+        {
+            
+            var stream = new FileStream(path, FileMode.Open);
+            var response = new HttpResponseMessage()
+            {
+                Content = new StreamContent(stream),
+                StatusCode = HttpStatusCode.OK
+            };
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+
+            return response;
+        }
+
+        public static HttpResponseMessage Return404HttpResponsePage(string path)
+        {
+
+            var stream = new FileStream(path, FileMode.Open);
+            var response = new HttpResponseMessage
+            {
+                Content = new StreamContent(stream),
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+
+            return response;
         }
     }
 }
