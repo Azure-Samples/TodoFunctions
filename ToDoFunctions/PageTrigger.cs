@@ -17,14 +17,14 @@ namespace ToDoFunctions
         {
             if (pageName.Contains(".html"))
             {
-                var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"\\{pageName}";
+                var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"Pages\\{pageName}";
                 if (File.Exists(path))
                 {
                     return Utility.ReturnRequestedHttpResponsePage(path);
                 }
                 else
                 {
-                    path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"\\404.html";
+                    path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"Pages\\404.html";
                     return Utility.Return404HttpResponsePage(path);
                 }
                 
@@ -36,14 +36,14 @@ namespace ToDoFunctions
             }
             else
             {
-                var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"\\{pageName}.html";
+                var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"Pages\\{pageName}.html";
                 if (File.Exists(path))
                 {                
                     return Utility.ReturnRequestedHttpResponsePage(path);
                 }
                 else
                 {
-                    path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"\\404.html";
+                    path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"Pages\\404.html";
                     return Utility.Return404HttpResponsePage(path);
                 }
             }
