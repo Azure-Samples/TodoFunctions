@@ -15,7 +15,7 @@ namespace ToDoFunctions
         [FunctionName("Page")]
         public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Page/{pageName}/{id?}")]HttpRequestMessage req, string pageName, TraceWriter log, ExecutionContext context)
         {
-            log.Info(context.FunctionDirectory);
+            
             if (pageName.Contains(".html"))
             {
                 var path = Path.GetFullPath(Path.Combine(context.FunctionDirectory, @"..\")) + $"Pages\\{pageName}";
