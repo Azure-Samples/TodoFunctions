@@ -20,8 +20,8 @@
         </div>
         <hr />
         <div class="btn-group">
-            <input type="button" class="btn btn-default" onclick="location.href='/CreateToDo';" value="Add A New To Do Item" />
-            <input type="button" class="btn btn-default" onclick="location.href = '/ToDoHistory';" value="View To Do Item History" />
+            <input type="button" class="btn btn-default" onclick="location.href='/Page/Create';" value="Add A New To Do Item" />
+            <input type="button" class="btn btn-default" onclick="location.href = '/Page/History';" value="View To Do Item History" />
         </div>
         <hr />
     </div>
@@ -59,7 +59,7 @@
 
 <script>
     $(document).ready(function () {
-        $.get("/GetToDoItems", function (data) {
+        $.get("/Api/GetToDoItems", function (data) {
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
@@ -92,7 +92,7 @@
         var xhr = new XMLHttpRequest();
         var json = JSON.stringify(rowKey);       
 
-        xhr.open("POST", "/CompleteToDoItem", true);
+        xhr.open("POST", "/Api/CompleteToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.status == 200) {
@@ -105,7 +105,7 @@
     function Delete(rowKey) {
         var xhr = new XMLHttpRequest();
         var json = JSON.stringify(rowKey);
-        xhr.open("POST", "/DeleteToDoItem", true);
+        xhr.open("POST", "/Api/DeleteToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.status == 200) {
@@ -116,7 +116,7 @@
     };
 
     function Edit(rowKey) {
-        var location = "/EditToDo/" + rowKey;
+        var location = "/Page/Update/" + rowKey;
         window.location = location;
     }
 </script>

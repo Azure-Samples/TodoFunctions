@@ -14,7 +14,7 @@ namespace ToDoFunctions
     public static class UpdateToDoItem
     {
         [FunctionName("UpdateToDoItem")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", "get")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", "get", Route ="Api/UpdateToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log)
         {
             if (req.Method == HttpMethod.Get)
             {
@@ -24,7 +24,7 @@ namespace ToDoFunctions
                 id = id.Replace("\"", "");
 
                 var item = Utility.GetToDoItemFromTable(table, id);
-                
+
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(Utility.SerializeToDoItemToJson(item), Encoding.UTF8, "application/json")
@@ -33,7 +33,7 @@ namespace ToDoFunctions
                 return response;
             }
 
-            else if (req.Method == HttpMethod.Post)
+            if (req.Method == HttpMethod.Post)
             {
                 var json = req.Content.ReadAsStringAsync().Result;
                 var item = Utility.DeserializeJson(json);
@@ -53,9 +53,9 @@ namespace ToDoFunctions
             {
                 return req.CreateResponse(HttpStatusCode.InternalServerError);
             }
-            
+
         }
 
-        
+
     }
 }

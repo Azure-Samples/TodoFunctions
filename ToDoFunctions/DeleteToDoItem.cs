@@ -13,7 +13,7 @@ namespace ToDoFunctions
     public static class DeleteToDoItem
     {
         [FunctionName("DeleteToDoItem")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "DeleteToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Api/DeleteToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log)
         {
             var val = req.Content;
             var id = val.ReadAsStringAsync().Result;

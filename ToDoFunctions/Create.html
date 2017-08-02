@@ -27,19 +27,26 @@
     $("#todoform").submit(function (event) {
         event.preventDefault();
 
-        var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\"}";
-        var json = JSON.stringify($(this).serializeArray());
+        // var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\", \"RowKey\":\"" + $("#RowKey").val() + "\"}";
+        var form = {
+            Title: $("#Title").val(),
+            Description: $("#Description").val(),
+            Due: $("#Due").val(),
+            IsComplete: false,
+            RowKey: $("#RowKey").val()
+        };
+        var json = JSON.stringify(form);
         var xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "/AddToDoItem", true);
+        xhr.open("POST", "/Api/AddToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.status == 201) {
                 window.location.href = "/Index";
             }
         };
-        xhr.send(customJson);      
-    });
+        xhr.send(json);
+    });      
 
     
 </script>

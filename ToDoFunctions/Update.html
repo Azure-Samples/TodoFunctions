@@ -15,7 +15,7 @@
             Due: <input id="Due" name="Due" type="date" class="form-control" value="" /><br />
             <input type="hidden" id="RowKey" value="" />
             <button type="submit" class="btn btn-default">Update</button>
-            <input type="button" onclick="location.href = '/Index';" value="Go Back" class="btn btn-default" />
+            <input type="button" onclick="location.href = '/Page/Index';" value="Go Back" class="btn btn-default" />
         </form>
     </div>
 </body>
@@ -27,9 +27,26 @@
 <script>
     window.onload = function () {
         var url = window.location.href;
-        var editId = JSON.stringify(url.split("/EditToDo/")[1]);
+        var editId = JSON.stringify(url.split("/Update/")[1]);
 
-        $.get("/UpdateToDoItem", { id: editId }, function (data) {
+    //    var xhr = new XMLHttpRequest();
+
+    //    xhr.open("GET", "/Api/UpdateToDoItem", true);
+    //    xhr.setRequestHeader('Content-Type', 'application/text');
+    //    xhr.onreadystatechange = function () {
+    //        var data = xhr.responseText;
+    //        $("#Title").val(data.Title);
+    //        $("#Description").val(data.Description);
+    //        $("#RowKey").val(data.RowKey);
+    //        //var correctDate = data.Due.split("T");
+
+    //       // $("#Due").val(correctDate[0]);
+    //        console.log(data);
+    //    };
+    //    xhr.send();
+    //    console.log(xhr.responseText);
+
+        $.get("/Api/UpdateToDoItem", { id: editId }, function (data) {
             console.log(data);
             $("#Title").val(data.Title);
             $("#Description").val(data.Description);
@@ -43,18 +60,25 @@
     $("#todoform").submit(function (event) {
         event.preventDefault();
 
-        var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\", \"RowKey\":\"" + $("#RowKey").val() + "\"}";
-        var json = JSON.stringify($(this).serializeArray());
+        // var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\", \"RowKey\":\"" + $("#RowKey").val() + "\"}";
+        var form = {
+            Title: $("#Title").val(),
+            Description: $("#Description").val(),
+            Due: $("#Due").val(),
+            IsComplete: false,
+            RowKey: $("#RowKey").val()
+        };
+        var json = JSON.stringify(form);
         var xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "/UpdateToDoItem", true);
+        xhr.open("POST", "/Api/UpdateToDoItem", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.status == 201) {
-                window.location.href = "/Index";
+                window.location.href = "/Page/Index";
             }
         };
-        xhr.send(customJson);
+        xhr.send(json);
     });
 
 

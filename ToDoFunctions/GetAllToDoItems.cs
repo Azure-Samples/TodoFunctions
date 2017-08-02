@@ -13,7 +13,7 @@ namespace ToDoFunctions
     public static class GetAllToDoItems
     {
         [FunctionName("GetAllToDoItems")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, TraceWriter log)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Api/GetAllToDoItems")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]IQueryable<ToDoItem> inTable, TraceWriter log)
         {
             var items = inTable.AsEnumerable().ToList();
 

@@ -18,7 +18,7 @@ namespace ToDoFunctions
     public static class CompleteToDoItem
     {
         [FunctionName("CompleteToDoItem")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="Api/CompleteToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
         {
             var val = req.Content;
             var id = val.ReadAsStringAsync().Result;
