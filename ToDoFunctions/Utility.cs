@@ -14,27 +14,6 @@ namespace ToDoFunctions
 {
     public static class Utility
     {
-        public static ToDoItem DeserializeJson(string json)
-        {
-            var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(json);
-
-            return toDoItem;
-        }
-
-        public static string SerializeToDoItemToJson(ToDoItem toDoItem)
-        {
-            var json = JsonConvert.SerializeObject(toDoItem);
-
-            return json;
-        }
-
-        public static string SerializeToDoItemToJson(List<ToDoItem> toDoItems)
-        {
-            var json = JsonConvert.SerializeObject(toDoItems);
-
-            return json;
-        }
-
         public static void AddOrUpdateToDoItemToTable(CloudTable table, ToDoItem item)
         {
             if (item.RowKey == null || item.RowKey == "")

@@ -58,67 +58,65 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-        $.get("/Api/GetToDoItems", function (data) {
-            $("#result").html(data);
-            console.log(data);
-            var list = $("#todolist");
-            for (var i = 0; i < data.length; i++) {
+$(document).ready(function () {
+    $.get("/Api/GetToDoItems", function (data) {
+        var list = $("#todolist");
+        for (var i = 0; i < data.length; i++) {
 
-                var myDate = new Date(Date.parse(data[i].Due));
-                var month = myDate.getMonth() + 1;
-                var day = myDate.getUTCDate();
-                var year = myDate.getFullYear();
-                var dateTime = "";
+            var myDate = new Date(Date.parse(data[i].Due));
+            var month = myDate.getMonth() + 1;
+            var day = myDate.getUTCDate();
+            var year = myDate.getFullYear();
+            var dateTime = "";
 
-                if (isNaN(month) || isNaN(day) || isNaN(year)) {
-                    dateTime = "--/--/----";
-                }
-                else {
-                    dateTime = month + "/" + day + "/" + year;
-                }
-
-                var context = { Title: data[i].Title, Description: data[i].Description, Due: dateTime, RowKey: data[i].RowKey };
-                var source = $("#ToDoPanel").html();
-                var template = Handlebars.compile(source);
-                var html = template(context);
-
-                list.append(html);
+            if (isNaN(month) || isNaN(day) || isNaN(year)) {
+                dateTime = "--/--/----";
             }
-        });
+            else {
+                dateTime = month + "/" + day + "/" + year;
+            }
+
+            var context = { Title: data[i].Title, Description: data[i].Description, Due: dateTime, RowKey: data[i].RowKey };
+            var source = $("#ToDoPanel").html();
+            var template = Handlebars.compile(source);
+            var html = template(context);
+
+            list.append(html);
+        }
     });
+});
 
-    function CompleteToDo(rowKey) {
-        var xhr = new XMLHttpRequest();
-        var json = JSON.stringify(rowKey);       
+function CompleteToDo(rowKey) {
+    var xhr = new XMLHttpRequest();
+    var json = JSON.stringify(rowKey);       
 
-        xhr.open("POST", "/Api/CompleteToDoItem", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 200) {
-                window.location.reload();
-            }
-        };
-        xhr.send(json);    
+    xhr.open("POST", "/Api/CompleteToDoItem", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.status == 200) {
+            window.location.reload();
+        }
     };
+    xhr.send(json);
+};
 
-    function Delete(rowKey) {
-        var xhr = new XMLHttpRequest();
-        var json = JSON.stringify(rowKey);
-        xhr.open("POST", "/Api/DeleteToDoItem", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 200) {
-                window.location.reload();
-            }
-        };
-        xhr.send(json); 
+function Delete(rowKey) {
+    var xhr = new XMLHttpRequest();
+    var json = JSON.stringify(rowKey);
+    xhr.open("POST", "/Api/DeleteToDoItem", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.status == 200) {
+            window.location.reload();
+        }
     };
+    xhr.send(json);
+};
 
-    function Edit(rowKey) {
-        var location = "/Page/Update/" + rowKey;
-        window.location = location;
-    }
+function Edit(rowKey) {
+    var location = "/Page/Update/" + rowKey;
+    window.location = location;
+}
 </script>
 
 

@@ -25,61 +25,39 @@
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
 <script>
-    window.onload = function () {
-        var url = window.location.href;
-        var editId = JSON.stringify(url.split("/Update/")[1]);
+window.onload = function () {
+    var url = window.location.href;
+    var editId = JSON.stringify(url.split("/Update/")[1]);
 
-    //    var xhr = new XMLHttpRequest();
+    $.get("/Api/UpdateToDoItem", {id: editId}, function (data) {
+        $("#Title").val(data.Title);
+        $("#Description").val(data.Description);
+        $("#RowKey").val(data.RowKey);
+        var correctDate = data.Due.split("T");
 
-    //    xhr.open("GET", "/Api/UpdateToDoItem", true);
-    //    xhr.setRequestHeader('Content-Type', 'application/text');
-    //    xhr.onreadystatechange = function () {
-    //        var data = xhr.responseText;
-    //        $("#Title").val(data.Title);
-    //        $("#Description").val(data.Description);
-    //        $("#RowKey").val(data.RowKey);
-    //        //var correctDate = data.Due.split("T");
-
-    //       // $("#Due").val(correctDate[0]);
-    //        console.log(data);
-    //    };
-    //    xhr.send();
-    //    console.log(xhr.responseText);
-
-        $.get("/Api/UpdateToDoItem", { id: editId }, function (data) {
-            console.log(data);
-            $("#Title").val(data.Title);
-            $("#Description").val(data.Description);
-            $("#RowKey").val(data.RowKey);
-            var correctDate = data.Due.split("T");
-
-            $("#Due").val(correctDate[0]);
-        });
-    };
-
-    $("#todoform").submit(function (event) {
-        event.preventDefault();
-
-        // var customJson = "{\"Title\":\"" + $("#Title").val() + "\",\"Description\":\"" + $("#Description").val() + "\",\"Due\":\"" + $("#Due").val() + "\",\"IsComplete\":\"false\", \"RowKey\":\"" + $("#RowKey").val() + "\"}";
-        var form = {
-            Title: $("#Title").val(),
-            Description: $("#Description").val(),
-            Due: $("#Due").val(),
-            IsComplete: false,
-            RowKey: $("#RowKey").val()
-        };
-        var json = JSON.stringify(form);
-        var xhr = new XMLHttpRequest();
-
-        xhr.open("POST", "/Api/UpdateToDoItem", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 201) {
-                window.location.href = "/Page/Index";
-            }
-        };
-        xhr.send(json);
+        $("#Due").val(correctDate[0]);
     });
+};
 
+$("#todoform").submit(function (event) {
+    event.preventDefault();
+    var form = {
+        Title: $("#Title").val(),
+        Description: $("#Description").val(),
+        Due: $("#Due").val(),
+        IsComplete: false,
+        RowKey: $("#RowKey").val()
+    };
+    var json = JSON.stringify(form);
+    var xhr = new XMLHttpRequest();
 
+    xhr.open("POST", "/Api/UpdateToDoItem", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.status == 201) {
+            window.location.href = "/Page/Index";
+        }
+    };
+    xhr.send(json);
+});
 </script>
