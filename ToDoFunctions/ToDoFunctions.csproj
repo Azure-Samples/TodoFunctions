@@ -12,12 +12,18 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="host.json" />
     <None Remove="Index.html" />
+    <None Remove="proxies.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pages\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="proxies.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Handlebars.js" Version="3.0.0" />
@@ -36,9 +42,6 @@
   <ItemGroup>
     <None Update="Pages\Create.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="host.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

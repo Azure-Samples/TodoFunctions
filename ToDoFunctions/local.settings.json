@@ -3,6 +3,6 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "AzureWebJobsDashboard": "",
-    "MyTable": "REDACTED"
+    "MyTable": "UseDevelopmentStorage=true"
   }
 }
