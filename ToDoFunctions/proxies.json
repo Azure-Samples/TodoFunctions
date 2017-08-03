@@ -1,0 +1,17 @@
+﻿{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "HomePage": {
+      "matchCondition": {
+        "route": "/"
+      },
+      "backendUri": "https://azurefunctionstodo.azurewebsites.net/Page/Index"
+    },
+    "RoutingTest": {
+      "matchCondition": {
+        "route": "/{page}"
+      },
+      "backendUri": "https://azurefunctionstodo.azurewebsites.net/{page}"
+    }
+  }
+}
