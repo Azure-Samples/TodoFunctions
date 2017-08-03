@@ -27,7 +27,7 @@ namespace ToDoFunctions
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = new StringContent(Utility.SerializeToDoItemToJson(item), Encoding.UTF8, "application/json")
+                    Content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json")
                 };
 
                 return response;
@@ -36,7 +36,7 @@ namespace ToDoFunctions
             if (req.Method == HttpMethod.Post)
             {
                 var json = req.Content.ReadAsStringAsync().Result;
-                var item = Utility.DeserializeJson(json);
+                var item = JsonConvert.DeserializeObject<ToDoItem>(json);
 
                 var oldItem = Utility.GetToDoItemFromTable(table, item.RowKey);
 

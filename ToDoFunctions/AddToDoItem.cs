@@ -29,7 +29,7 @@ namespace ToDoFunctions
             {
                 var val = req.Content;
                 var json = val.ReadAsStringAsync().Result;
-                var toDoItem = Utility.DeserializeJson(json);
+                var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(json);
                 Utility.AddOrUpdateToDoItemToTable(table, toDoItem);
 
                 return req.CreateResponse(HttpStatusCode.Created);                                              
