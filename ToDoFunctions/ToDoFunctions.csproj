@@ -18,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="host.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Pages\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
