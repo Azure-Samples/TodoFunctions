@@ -23,7 +23,9 @@
     <Content Include="Pages\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="proxies.json" />
+    <Content Include="proxies.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Handlebars.js" Version="3.0.0" />
@@ -33,7 +35,7 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.ServiceBus" Version="2.1.0-beta1" />
     <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.0-alpha3" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.0-alpha6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
