@@ -20,9 +20,6 @@
     <Content Include="host.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\Index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="proxies.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -42,7 +39,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Pages\Create.html">
+    <None Update="www\Create.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="local.settings.json">
@@ -51,13 +48,13 @@
     <None Update="Pages\404.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Pages\History.html">
+    <None Update="www\History.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
     </None>
-    <None Update="Pages\Update.html">
+    <None Update="www\Update.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="StaticFileServer\function.json">
@@ -70,9 +67,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\css\signin.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\js\ie10-viewport-bug-workaround.js">
