@@ -12,10 +12,18 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="host.json" />
     <None Remove="Index.html" />
+    <None Remove="proxies.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="host.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pages\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="proxies.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -27,7 +35,7 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.ServiceBus" Version="2.1.0-beta1" />
     <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.0-alpha3" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.0-alpha6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -36,9 +44,6 @@
   <ItemGroup>
     <None Update="Pages\Create.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="host.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

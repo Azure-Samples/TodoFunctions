@@ -5,13 +5,13 @@
       "matchCondition": {
         "route": "/"
       },
-      "backendUri": "https://azurefunctionstodo.azurewebsites.net/Page/Index"
+      "backendUri": "https://%WEBSITE_HOSTNAME%/Page/Index"
     },
     "RoutingTest": {
       "matchCondition": {
         "route": "/{page}"
       },
-      "backendUri": "https://azurefunctionstodo.azurewebsites.net/{page}"
+      "backendUri": "https://%WEBSITE_HOSTNAME%/{page}"
     }
   }
 }
