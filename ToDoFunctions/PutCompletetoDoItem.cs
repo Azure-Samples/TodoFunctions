@@ -15,14 +15,14 @@ using Newtonsoft.Json;
 
 namespace ToDoFunctions
 {
-    public static class CompleteToDoItem
+    public static class PutCompleteToDoItem
     {
-        [FunctionName("CompleteToDoItem")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="Api/CompleteToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
+        [FunctionName("PutCompleteToDoItem")]
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route ="Api/ToDoItem/{id}")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, string id, TraceWriter log, ExecutionContext context)
         {
-            var val = req.Content;
-            var id = val.ReadAsStringAsync().Result;
-            id = id.Replace("\"", "");
+            //var val = req.Content;
+            //var id = await val.ReadAsStringAsync();
+            //id = id.Replace("\"", "");
 
 
             var item = Utility.GetToDoItemFromTable(table, id);

@@ -59,7 +59,7 @@
 
 <script>
 $(document).ready(function () {
-    $.get("/Api/GetToDoItems", function (data) {
+    $.get("/Api/ToDoItem/Current", function (data) {
         var list = $("#todolist");
         for (var i = 0; i < data.length; i++) {
 
@@ -90,27 +90,27 @@ function CompleteToDo(rowKey) {
     var xhr = new XMLHttpRequest();
     var json = JSON.stringify(rowKey);       
 
-    xhr.open("POST", "/Api/CompleteToDoItem", true);
+    xhr.open("PUT", "/Api/ToDoItem/" + rowKey, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.status == 200) {
             window.location.reload();
         }
     };
-    xhr.send(json);
+    xhr.send();
 };
 
 function Delete(rowKey) {
     var xhr = new XMLHttpRequest();
     var json = JSON.stringify(rowKey);
-    xhr.open("POST", "/Api/DeleteToDoItem", true);
+    xhr.open("DELETE", "/Api/ToDoItem/" + rowKey, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.status == 200) {
             window.location.reload();
         }
     };
-    xhr.send(json);
+    xhr.send();
 };
 
 function Edit(rowKey) {
