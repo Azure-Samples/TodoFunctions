@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bacon or Not Bacon</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      i.fa-check {
+        color: #009900;
+      }
+      i.fa-times {
+        color: #aa0000;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  </head>
+  
+  <body>
+    <div class="container" id="app" v-cloak>
+      <div>
+        <form class="form-signin" v-on:submit.prevent="onSubmit">
+          <h1>Bacon or Not Bacon</h1>
+          <div class="form-group">
+            <input type="text" placeholder="Image URL" class="form-control" v-model="url" />
+          </div>
+          <div class="form-group" v-if="!results && !waiting">
+            <input type="submit" class="btn btn-primary" value="submit">
+          </div>
+          <div v-if="waiting">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+          </div>
+          <div v-if="results">
+            <h2><i class="fa"  v-bind:class="{ 'fa-check': results.bacon, 'fa-times': !results.bacon }"></i> Bacon</h2>
+            <h2><i class="fa"  v-bind:class="{ 'fa-check': results.kevinBacon, 'fa-times': !results.kevinBacon }"></i> Kevin Bacon</h2>
+          </div>
+          <br />
+          <img :src="url" style="max-width: 100%;" />
+        </form>
+      </div>
+    </div>
+    <!-- /container -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.5.2/superagent.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+    <script>
+      var app = new Vue({
+          el: '#app',
+          data: {
+            url: '',
+            results: null,
+            waiting: false
+          },
+          methods: {
+            onSubmit: function(event) {
+              this.waiting = true;
+              superagent
+                .get('/api/bacon')
+                .query({ url: this.url })
+                .end(function(err, res) {
+                  this.waiting = false;
+                  if (err) {
+                    this.results = null;
+                    alert("failed");
+                  } else {
+                    this.results = res.body.contains;
+                  }
+              }.bind(this));
+            }
+          },
+          watch: {
+            url: function() {
+              this.results = null;
+            }
+          }
+        });
+    </script>
+  </body>
+
+</html>

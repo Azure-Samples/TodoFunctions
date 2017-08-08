@@ -1,17 +1,17 @@
 ﻿{
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "HomePage": {
+    "API": {
       "matchCondition": {
-        "route": "/"
+        "route": "api/{*restOfPath}"
       },
-      "backendUri": "https://%WEBSITE_HOSTNAME%/Page/Index"
+      "backendUri": "https://%WEBSITE_SITE_NAME%.azurewebsites.net/api/{restOfPath}"
     },
-    "RoutingTest": {
+    "Files": {
       "matchCondition": {
-        "route": "/{page}"
+        "route": "{*path}"
       },
-      "backendUri": "https://%WEBSITE_HOSTNAME%/{page}"
+      "backendUri": "https://%WEBSITE_SITE_NAME%.azurewebsites.net/api/StaticFileServer?file={path}"
     }
   }
 }
