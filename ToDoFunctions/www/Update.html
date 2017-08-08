@@ -27,7 +27,8 @@
 <script>
 window.onload = function () {
     var url = window.location.href;
-    var editId = url.split("/Update/")[1];
+    var editIdQueryMatch = window.location.search.match(/\bid=([a-zA-Z0-9\-]+)/);
+    var editId = editIdQueryMatch[1];
     var xhr = new XMLHttpRequest();
 
     xhr.open("GET", "/Api/ToDoItem/" + editId, true);
