@@ -19,16 +19,14 @@ using System.Reflection;
 
 namespace ToDoFunctions
 {
-    public static class AddToDoItem
+    public static class PostAddToDoItem
     {
-        [FunctionName("AddToDoItem")]
-        [StorageAccount("MyTable")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="Api/AddToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
+        [FunctionName("PostAddToDoItem")]
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route ="Api/ToDoItem")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, TraceWriter log, ExecutionContext context)
         {
             try
             {
-                var val = req.Content;
-                var json = val.ReadAsStringAsync().Result;
+                var json = await req.Content.ReadAsStringAsync();
                 var toDoItem = JsonConvert.DeserializeObject<ToDoItem>(json);
                 Utility.AddOrUpdateToDoItemToTable(table, toDoItem);
 
