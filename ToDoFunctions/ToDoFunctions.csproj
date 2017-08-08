@@ -54,6 +54,9 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
     </None>
+    <None Update="www\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="www\Update.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
