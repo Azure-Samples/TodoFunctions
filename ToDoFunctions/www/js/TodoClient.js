@@ -36,7 +36,7 @@
         xhr.open('POST', this.baseUrl + '/api/todos');
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function () {
-            if (xhr.status === 200) {
+            if (xhr.status === 200 || xhr.status === 201) {
                 callback(null, JSON.parse(xhr.responseText));
             }
             else {
@@ -74,6 +74,21 @@
             }
         };
         xhr.send(JSON.stringify({ isComplete: isComplete }));
+    };
+
+    TodoClient.prototype.delete = function (id, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', this.baseUrl + '/api/todos/' + id);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                callback(null, JSON.parse(xhr.responseText));
+            }
+            else {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.send();
     };
 
     window.TodoClient = TodoClient;

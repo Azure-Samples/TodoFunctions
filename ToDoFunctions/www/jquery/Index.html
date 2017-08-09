@@ -98,16 +98,11 @@
 
     function Delete(rowKey) {
         var todoClient = new TodoClient();
-        var xhr = new XMLHttpRequest();
-        var json = JSON.stringify(rowKey);
-        xhr.open("DELETE", "/Api/ToDoItem/" + rowKey, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 200) {
+        todoClient.delete(rowKey, function (err, data) {
+            if (!err) {
                 window.location.reload();
             }
-        };
-        xhr.send();
+        });
     };
 
     function Edit(rowKey) {
