@@ -39,6 +39,9 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="www\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="www\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -47,9 +50,6 @@
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Pages\404.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\jquery\History.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

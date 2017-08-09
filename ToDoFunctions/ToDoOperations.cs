@@ -42,7 +42,7 @@ namespace ToDoFunctions
             {
                 var json = await req.Content.ReadAsStringAsync();
                 var todo = JsonConvert.DeserializeObject<ToDo>(json);
-                Utility.AddOrUpdateToDoItemToTable(table, todo);
+                Utility.AddOrUpdateToDoToTable(table, todo);
 
                 return req.CreateResponse(HttpStatusCode.Created);
             }
@@ -62,11 +62,12 @@ namespace ToDoFunctions
             item.id = id; // ensure item id matches id passed in
             item.isComplete = oldItem.isComplete; // ensure we don't change isComplete
 
-            Utility.AddOrUpdateToDoItemToTable(table, item);
+            Utility.AddOrUpdateToDoToTable(table, item);
 
             return req.CreateResponse(HttpStatusCode.OK, item);
         }
 
+        // {"isComplete": true/false}
         [FunctionName("SetCompleteToDo")]
         public static async Task<HttpResponseMessage> SetCompleteToDo([HttpTrigger(AuthorizationLevel.Anonymous, "patch", Route = "api/todos/{id}")]HttpRequestMessage req, [Table("todotable", Connection = "MyTable")]CloudTable table, string id, TraceWriter log)
         {
@@ -76,7 +77,7 @@ namespace ToDoFunctions
             var oldItem = Utility.GetToDoFromTable(table, id);
             oldItem.isComplete = item.isComplete;
 
-            Utility.AddOrUpdateToDoItemToTable(table, oldItem);
+            Utility.AddOrUpdateToDoToTable(table, oldItem);
 
             return req.CreateResponse(HttpStatusCode.OK, oldItem);
         }

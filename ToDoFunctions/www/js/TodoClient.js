@@ -91,6 +91,35 @@
         xhr.send();
     };
 
+    TodoClient.prototype.deleteList = function (ids, callback) {
+        if (!ids.length) {
+            callback(null, []);
+        }
+
+        var counter = 0;
+        ids.forEach(function (id) {
+            this.delete(id, done);
+            counter++;
+        }.bind(this));
+
+        var statuses = [];
+        function done(err, data) {
+            counter--;
+            statuses.push({
+                err: err,
+                data: data
+            });
+            if (counter === 0) {
+                var allSucceeded = statuses.filter(function (s) { return err; }).length === 0;
+                if (allSucceeded) {
+                    callback(null, statuses);
+                } else {
+                    callback("At least one failure", statuses);
+                }
+            }
+        }
+    };
+
     function safeJsonParse(input) {
         try {
             return JSON.parse(input);
