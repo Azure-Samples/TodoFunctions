@@ -14,7 +14,7 @@
             <input id="Description" name="Description" type="text" class="form-control" placeholder="Description" /><br />
             Due: <input id="Due" name="Due" type="date" class="form-control" /><br />          
             <button type="submit" class="btn btn-default">Add</button>
-            <input type="button" onclick="location.href = '/Page/Index';" value="Go Back" class="btn btn-default" />
+            <input type="button" onclick="location.href = 'index.html';" value="Go Back" class="btn btn-default" />
         </form>
     </div>
 </body>
@@ -40,7 +40,7 @@
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.status == 201) {
-                window.location.href = "/";
+                window.location.href = "index.html";
             }
         };
         xhr.send(json);

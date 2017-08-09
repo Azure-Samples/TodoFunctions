@@ -20,8 +20,8 @@
         </div>
         <hr />
         <div class="btn-group">
-            <input type="button" class="btn btn-default" onclick="location.href='/Page/Create';" value="Add A New To Do Item" />
-            <input type="button" class="btn btn-default" onclick="location.href = '/Page/History';" value="View To Do Item History" />
+            <input type="button" class="btn btn-default" onclick="location.href='Create.html';" value="Add A New To Do Item" />
+            <input type="button" class="btn btn-default" onclick="location.href = 'History.html';" value="View To Do Item History" />
         </div>
         <hr />
     </div>
@@ -114,7 +114,7 @@ function Delete(rowKey) {
 };
 
 function Edit(rowKey) {
-    var location = "/Page/Update/" + rowKey;
+    var location = "Update.html?id=" + rowKey;
     window.location = location;
 }
 </script>

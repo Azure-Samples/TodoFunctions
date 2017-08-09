@@ -19,8 +19,8 @@
         </div>
         <hr />
         <div class="btn-group">
-            <input type="button" class="btn btn-default" onclick="location.href='/Page/Create';" value="Add A New To Do Item" />
-            <input type="button" class="btn btn-default" onclick="location.href = '/Page/Index';" value="View To Do Items" />
+            <input type="button" class="btn btn-default" onclick="location.href='Create.html';" value="Add A New To Do Item" />
+            <input type="button" class="btn btn-default" onclick="location.href = 'index.html';" value="View To Do Items" />
         </div>
         <hr />
     </div>
@@ -112,7 +112,7 @@
     };
 
     function Edit(rowKey) {
-        var location = "/Page/Update/" + rowKey;
+        var location = "Update.html?id=" + rowKey;
         window.location = location;
     }
 </script>
