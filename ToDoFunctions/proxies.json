@@ -5,13 +5,13 @@
       "matchCondition": {
         "route": "api/{*restOfPath}"
       },
-      "backendUri": "https://%WEBSITE_SITE_NAME%.azurewebsites.net/api/{restOfPath}"
+      "backendUri": "https://%WEBSITE_HOSTNAME%/api/{restOfPath}"
     },
     "Files": {
       "matchCondition": {
         "route": "{*path}"
       },
-      "backendUri": "https://%WEBSITE_SITE_NAME%.azurewebsites.net/api/StaticFileServer?file={path}"
+      "backendUri": "https://%WEBSITE_HOSTNAME%/api/StaticFileServer?file={path}"
     }
   }
 }
