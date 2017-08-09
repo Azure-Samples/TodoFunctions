@@ -37,7 +37,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-
+<script src="../js/TodoClient.js"></script>
 <script id="ToDoPanel" type="text/x-handlebars-template">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -58,65 +58,55 @@
 </script>
 
 <script>
-$(document).ready(function () {
-    $.get("/Api/ToDoItem/Current", function (data) {
-        var list = $("#todolist");
-        for (var i = 0; i < data.length; i++) {
+    $(document).ready(function () {
+        var todoClient = new TodoClient();
+        todoClient.getList(false, true, function (err, data) {
+            var list = $("#todolist");
+            for (var i = 0; i < data.length; i++) {
 
-            var myDate = new Date(Date.parse(data[i].Due));
-            var month = myDate.getMonth() + 1;
-            var day = myDate.getUTCDate();
-            var year = myDate.getFullYear();
-            var dateTime = "";
+                var myDate = new Date(Date.parse(data[i].due));
+                var month = myDate.getMonth() + 1;
+                var day = myDate.getUTCDate();
+                var year = myDate.getFullYear();
+                var dateTime = "";
 
-            if (isNaN(month) || isNaN(day) || isNaN(year)) {
-                dateTime = "--/--/----";
+                if (isNaN(month) || isNaN(day) || isNaN(year)) {
+                    dateTime = "--/--/----";
+                }
+                else {
+                    dateTime = month + "/" + day + "/" + year;
+                }
+
+                var context = { Title: data[i].title, Description: data[i].description, Due: dateTime, RowKey: data[i].id };
+                var source = $("#ToDoPanel").html();
+                var template = Handlebars.compile(source);
+                var html = template(context);
+
+                list.append(html);
             }
-            else {
-                dateTime = month + "/" + day + "/" + year;
-            }
-
-            var context = { Title: data[i].Title, Description: data[i].Description, Due: dateTime, RowKey: data[i].RowKey };
-            var source = $("#ToDoPanel").html();
-            var template = Handlebars.compile(source);
-            var html = template(context);
-
-            list.append(html);
-        }
+        });
     });
-});
 
-function CompleteToDo(rowKey) {
-    var xhr = new XMLHttpRequest();
-    var json = JSON.stringify(rowKey);       
-
-    xhr.open("PUT", "/Api/ToDoItem/" + rowKey, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.status == 200) {
-            window.location.reload();
-        }
+    function CompleteToDo(id) {
+        var todoClient = new TodoClient();
+        todoClient.setIsComplete(id, true, function (err, data) {
+            if (!err) {
+                window.location.reload();
+            }
+        });
     };
-    xhr.send();
-};
 
-function Delete(rowKey) {
-    var xhr = new XMLHttpRequest();
-    var json = JSON.stringify(rowKey);
-    xhr.open("DELETE", "/Api/ToDoItem/" + rowKey, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.status == 200) {
-            window.location.reload();
-        }
+    function Delete(rowKey) {
+        var todoClient = new TodoClient();
+        todoClient.delete(rowKey, function (err, data) {
+            if (!err) {
+                window.location.reload();
+            }
+        });
     };
-    xhr.send();
-};
 
-function Edit(rowKey) {
-    var location = "Update.html?id=" + rowKey;
-    window.location = location;
-}
+    function Edit(rowKey) {
+        var location = "Update.html?id=" + rowKey;
+        window.location = location;
+    }
 </script>
-
-

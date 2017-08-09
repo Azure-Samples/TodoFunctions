@@ -72,6 +72,9 @@
     <None Update="StaticFileServer\run.csx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="www\js\TodoClient.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="www\react\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
