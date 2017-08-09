@@ -52,16 +52,17 @@
         </div>
     </div>
 </script>
-
+<script src="../js/TodoClient.js"></script>
 <script>
     $(document).ready(function () {
-        $.get("/Api/ToDoItem/All", function (data) {
+        var todoClient = new TodoClient();
+        todoClient.getList(true, true, function (err, data) {
             $("#result").html(data);
             console.log(data);
             var list = $("#todolist");
             for (var i = 0; i < data.length; i++) {
 
-                var myDate = new Date(Date.parse(data[i].Due));
+                var myDate = new Date(Date.parse(data[i].due));
                 var month = myDate.getMonth() + 1;
                 var day = myDate.getUTCDate();
                 var year = myDate.getFullYear();
@@ -74,7 +75,7 @@
                     dateTime = month + "/" + day + "/" + year;
                 }
 
-                var context = { Title: data[i].Title, Description: data[i].Description, Due: dateTime, RowKey: data[i].RowKey, IsComplete: data[i].IsComplete };
+                var context = { Title: data[i].title, Description: data[i].description, Due: dateTime, RowKey: data[i].id, IsComplete: data[i].isComplete };
                 var source = $("#ToDoPanel").html();
                 var template = Handlebars.compile(source);
                 var html = template(context);
@@ -85,31 +86,22 @@
     });
 
     function CompleteToDo(rowKey) {
-        var xhr = new XMLHttpRequest();
-        var json = JSON.stringify(rowKey);
-
-        xhr.open("PUT", "/Api/ToDoItem/" + rowKey, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 200) {
+        var todoClient = new TodoClient();
+        todoClient.setIsComplete(rowKey, true, function (err, data) {
+            if (!err) {
                 window.location.reload();
             }
-        };
-        xhr.send();
-    };
+        });
+    }
 
     function Delete(rowKey) {
-        var xhr = new XMLHttpRequest();
-        var json = JSON.stringify(rowKey);
-        xhr.open("DELETE", "/Api/ToDoItem/" + rowKey, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.status == 200) {
+        var todoClient = new TodoClient();
+        todoClient.delete(rowKey, function (err, data) {
+            if (!err) {
                 window.location.reload();
             }
-        };
-        xhr.send();
-    };
+        });
+    }
 
     function Edit(rowKey) {
         var location = "Update.html?id=" + rowKey;

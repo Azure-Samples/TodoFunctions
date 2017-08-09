@@ -82,7 +82,7 @@
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function () {
             if (xhr.status === 200) {
-                callback(null, JSON.parse(xhr.responseText));
+                callback(null, safeJsonParse(xhr.responseText));
             }
             else {
                 callback(xhr.responseText);
@@ -90,6 +90,13 @@
         };
         xhr.send();
     };
+
+    function safeJsonParse(input) {
+        try {
+            return JSON.parse(input);
+        } catch (e) {
+        }
+    }
 
     window.TodoClient = TodoClient;
 }());
