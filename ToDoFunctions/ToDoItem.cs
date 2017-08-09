@@ -9,6 +9,11 @@ namespace ToDoFunctions
 {
     public class ToDoItem : TableEntity
     {
+        public ToDoItem()
+        {
+            PartitionKey = "ToDoItem";
+        }
+
         public string Title { get; set; }
         public string Description { get; set; }
         
