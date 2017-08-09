@@ -37,7 +37,7 @@
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function () {
             if (xhr.status === 200 || xhr.status === 201) {
-                callback(null, JSON.parse(xhr.responseText));
+                callback(null, safeJsonParse(xhr.responseText));
             }
             else {
                 callback(xhr.responseText);
