@@ -93,6 +93,9 @@
     <None Update="www\react\js\utils.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="www\react\learn.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="www\react\node_modules\classnames\index.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
