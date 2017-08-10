@@ -113,12 +113,19 @@ var app = app || {};
     };
 
 
-    // Delete this or implement this?
+    // Clear Completed
     app.TodoModel.prototype.clearCompleted = function () {
         this.todos = this.todos.filter(function (todo) {
+            if (todo.completed) {
+                console.log("this todo is complete");
+                this.todoClient.delete(todo.id, function (err, data) {
+                    if (err) {
+                        console.log("Something went wrong!");
+                    }
+                });
+            }
             return !todo.completed;
-        });
-
+        }.bind(this));
         this.inform();
     };
 
