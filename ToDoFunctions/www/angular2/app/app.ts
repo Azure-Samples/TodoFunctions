@@ -1,5 +1,5 @@
 import { Component } from 'angular2/core';
-import { TodoStore, Todo } from './services/store';
+import { Todo } from './services/store';
 
 declare var TodoClient: any;
 
@@ -8,14 +8,11 @@ declare var TodoClient: any;
     templateUrl: 'app/app.html'
 })
 export default class TodoApp {
-    todoStore: TodoStore;
     todos: Array<Todo>;
     newTodoText = '';
     todoClient = new TodoClient();
 
-    constructor(todoStore: TodoStore) {
-        this.todoStore = todoStore;
-        this.todos = todoStore.todos;
+    constructor() {
         this.todoClient.getList(true, true, (err: any, data: any) => {
             this.todos = data.map((todo: { id: String, title: String, isComplete: boolean }) => {
                 const newTodo = new Todo(todo.title);

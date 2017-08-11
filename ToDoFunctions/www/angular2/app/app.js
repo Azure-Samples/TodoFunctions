@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
 var TodoApp = (function () {
-    function TodoApp(todoStore) {
+    function TodoApp() {
         var _this = this;
         this.newTodoText = '';
         this.todoClient = new TodoClient();
-        this.todoStore = todoStore;
-        this.todos = todoStore.todos;
         this.todoClient.getList(true, true, function (err, data) {
             _this.todos = data.map(function (todo) {
                 var newTodo = new store_1.Todo(todo.title);
@@ -97,7 +95,7 @@ var TodoApp = (function () {
             selector: 'todo-app',
             templateUrl: 'app/app.html'
         }), 
-        __metadata('design:paramtypes', [store_1.TodoStore])
+        __metadata('design:paramtypes', [])
     ], TodoApp);
     return TodoApp;
 })();
