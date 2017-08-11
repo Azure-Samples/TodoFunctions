@@ -94,4 +94,8 @@ export default class TodoApp {
             });
         }
     }
+
+    containsCompletedTodos()  {
+        return this.todos.some(t => t.completed);
+    }
 }

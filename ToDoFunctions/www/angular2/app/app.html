@@ -4,7 +4,6 @@
         <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodoText" (keyup.enter)="addTodo()">
     </header>
     <section class="main" *ngIf="todos.length > 0">
-        <input class="toggle-all" type="checkbox" *ngIf="todos.length" #toggleall [checked]="todoStore.allCompleted()" (click)="todoStore.setAllTo(toggleall.checked)">
         <ul class="todo-list">
             <li *ngFor="#todo of todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
                 <div class="view">
@@ -17,7 +16,6 @@
         </ul>
     </section>
     <footer class="footer" *ngIf="todos.length > 0">
-        <span class="todo-count"><strong>{{todoStore.getRemaining().length}}</strong> {{todoStore.getRemaining().length == 1 ? 'item' : 'items'}} left</span>
-        <button class="clear-completed" *ngIf="todoStore.getCompleted().length > 0" (click)="removeCompleted()">Clear completed</button>
+        <button class="clear-completed" *ngIf="containsCompletedTodos()" (click)="removeCompleted()">Clear completed</button>
     </footer>
 </section>

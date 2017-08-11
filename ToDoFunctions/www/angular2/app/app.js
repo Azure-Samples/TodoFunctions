@@ -91,6 +91,9 @@ var TodoApp = (function () {
             });
         }
     };
+    TodoApp.prototype.containsCompletedTodos = function () {
+        return this.todos.some(function (t) { return t.completed; });
+    };
     TodoApp = __decorate([
         core_1.Component({
             selector: 'todo-app',
