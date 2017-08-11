@@ -12,6 +12,7 @@ var store_1 = require('./services/store');
 var TodoApp = (function () {
     function TodoApp() {
         var _this = this;
+        this.todos = [];
         this.newTodoText = '';
         this.todoClient = new TodoClient();
         this.todoClient.getList(true, true, function (err, data) {

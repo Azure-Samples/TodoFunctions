@@ -8,7 +8,7 @@ declare var TodoClient: any;
     templateUrl: 'app/app.html'
 })
 export default class TodoApp {
-    todos: Array<Todo>;
+    todos: Array<Todo> = [];
     newTodoText = '';
     todoClient = new TodoClient();
 
