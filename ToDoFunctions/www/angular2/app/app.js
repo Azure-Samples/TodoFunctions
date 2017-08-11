@@ -11,11 +11,21 @@ var core_1 = require('angular2/core');
 var store_1 = require('./services/store');
 var TodoApp = (function () {
     function TodoApp(todoStore) {
+        var _this = this;
         this.newTodoText = '';
+        this.todoClient = new TodoClient();
         this.todoStore = todoStore;
+        this.todos = todoStore.todos;
+        this.todoClient.getList(true, true, function (err, data) {
+            _this.todos = data.map(function (todo) {
+                var newTodo = new store_1.Todo(todo.title);
+                newTodo.completed = todo.isComplete;
+                newTodo.id = todo.id;
+                return newTodo;
+            });
+        });
     }
     TodoApp.prototype.stopEditing = function (todo, editedTitle) {
-        todo.title = editedTitle;
         todo.editing = false;
     };
     TodoApp.prototype.cancelEditingTodo = function (todo) {
@@ -23,39 +33,71 @@ var TodoApp = (function () {
     };
     TodoApp.prototype.updateEditingTodo = function (todo, editedTitle) {
         editedTitle = editedTitle.trim();
-        todo.editing = false;
         if (editedTitle.length === 0) {
-            return this.todoStore.remove(todo);
+            this.remove(todo);
         }
-        todo.title = editedTitle;
+        else {
+            this.todoClient.update({
+                id: todo.id,
+                title: editedTitle
+            }, function (err, data) {
+                if (!err) {
+                    todo.title = editedTitle;
+                    todo.editing = false;
+                }
+            });
+        }
     };
     TodoApp.prototype.editTodo = function (todo) {
         todo.editing = true;
     };
     TodoApp.prototype.removeCompleted = function () {
-        this.todoStore.removeCompleted();
+        var _this = this;
+        var idsToDelete = this.todos.filter(function (t) { return t.completed; }).map(function (t) { return t.id; });
+        this.todoClient.deleteList(idsToDelete, function (err, data) {
+            if (!err) {
+                _this.todos = _this.todos.filter(function (t) { return idsToDelete.indexOf(t.id) < 0; });
+            }
+        });
     };
     TodoApp.prototype.toggleCompletion = function (todo) {
-        this.todoStore.toggleCompletion(todo);
+        var newStatus = !todo.completed;
+        this.todoClient.setIsComplete(todo.id, newStatus, function (err, data) {
+            if (!err) {
+                todo.completed = newStatus;
+            }
+        });
     };
     TodoApp.prototype.remove = function (todo) {
-        this.todoStore.remove(todo);
+        var _this = this;
+        this.todoClient.delete(todo.id, function (err, data) {
+            if (!err) {
+                _this.todos = _this.todos.filter(function (t) { return t !== todo; });
+            }
+        });
     };
     TodoApp.prototype.addTodo = function () {
+        var _this = this;
         if (this.newTodoText.trim().length) {
-            this.todoStore.add(this.newTodoText);
-            this.newTodoText = '';
+            this.todoClient.create({
+                // TODO: need to get the new id back
+                title: this.newTodoText
+            }, function (err, data) {
+                if (!err) {
+                    _this.todos.push(new store_1.Todo(_this.newTodoText));
+                    _this.newTodoText = '';
+                }
+            });
         }
     };
     TodoApp = __decorate([
         core_1.Component({
             selector: 'todo-app',
             templateUrl: 'app/app.html'
-        }), 
+        }),
         __metadata('design:paramtypes', [store_1.TodoStore])
     ], TodoApp);
     return TodoApp;
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = TodoApp;
-//# sourceMappingURL=app.js.map
