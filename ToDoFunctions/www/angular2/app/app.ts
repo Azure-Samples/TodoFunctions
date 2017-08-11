@@ -85,11 +85,13 @@ export default class TodoApp {
     addTodo() {
         if (this.newTodoText.trim().length) {
             this.todoClient.create({
-                // TODO: need to get the new id back
                 title: this.newTodoText
             }, (err: any, data: any) => {
                 if (!err) {
-                    this.todos.push(new Todo(this.newTodoText));
+                    const newTodo = new Todo(data.title);
+                    newTodo.completed = data.isComplete;
+                    newTodo.id = data.id;
+                    this.todos.push(newTodo);
                     this.newTodoText = '';
                 }
             });

@@ -80,11 +80,13 @@ var TodoApp = (function () {
         var _this = this;
         if (this.newTodoText.trim().length) {
             this.todoClient.create({
-                // TODO: need to get the new id back
                 title: this.newTodoText
             }, function (err, data) {
                 if (!err) {
-                    _this.todos.push(new store_1.Todo(_this.newTodoText));
+                    var newTodo = new store_1.Todo(data.title);
+                    newTodo.completed = data.isComplete;
+                    newTodo.id = data.id;
+                    _this.todos.push(newTodo);
                     _this.newTodoText = '';
                 }
             });
@@ -94,10 +96,11 @@ var TodoApp = (function () {
         core_1.Component({
             selector: 'todo-app',
             templateUrl: 'app/app.html'
-        }),
+        }), 
         __metadata('design:paramtypes', [store_1.TodoStore])
     ], TodoApp);
     return TodoApp;
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = TodoApp;
+//# sourceMappingURL=app.js.map
