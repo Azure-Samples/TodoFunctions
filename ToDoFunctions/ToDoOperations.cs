@@ -44,7 +44,7 @@ namespace ToDoFunctions
                 var todo = JsonConvert.DeserializeObject<ToDo>(json);
                 Utility.AddOrUpdateToDoToTable(table, todo);
 
-                return req.CreateResponse(HttpStatusCode.Created);
+                return req.CreateResponse(HttpStatusCode.Created, todo);
             }
             catch (Exception e)
             {
