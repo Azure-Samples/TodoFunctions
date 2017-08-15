@@ -127,6 +127,6 @@ var app = app || {};
             return !todo.completed;
         }.bind(this));
         this.inform();
-    };c
+    };
 
 })();
