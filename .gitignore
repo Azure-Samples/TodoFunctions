@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 
 ToDoFunctions/www/angular2/node_modules/**/*
+!www
