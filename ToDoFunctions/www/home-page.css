@@ -1,0 +1,10 @@
+﻿a.home-page:link, a.home-page:visited {
+    font-weight: normal;
+    text-decoration: none;
+    color: #b83f45;
+}
+
+a.home-page:hover {
+    text-decoration: underline;
+    color: #787e7e;
+}
