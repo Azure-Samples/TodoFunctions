@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoFunctions
+namespace ToDoFunctions.Entities
 {
     public class ToDoItem : TableEntity
     {

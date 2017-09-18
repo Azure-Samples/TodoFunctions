@@ -1,9 +1,0 @@
-{
-  "frameworks": {
-    "net46":{
-      "dependencies": {
-        "MediaTypeMap": "2.1.0"
-      }
-    }
-   }
-}

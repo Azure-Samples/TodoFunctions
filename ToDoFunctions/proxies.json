@@ -3,15 +3,45 @@
   "proxies": {
     "API": {
       "matchCondition": {
-        "route": "api/{*restOfPath}"
+        "route": "/api/{*restOfPath}"
       },
       "backendUri": "https://%WEBSITE_HOSTNAME%/api/{restOfPath}"
     },
-    "Files": {
+    "root": {
       "matchCondition": {
-        "route": "{*path}"
+        "route": "/"
       },
-      "backendUri": "https://%WEBSITE_HOSTNAME%/api/StaticFileServer?file={path}"
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/index.html"
+    },
+    "angular2": {
+      "matchCondition": {
+        "route": "/angular2/"
+      },
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/angular2/index.html"
+    },
+    "react": {
+      "matchCondition": {
+        "route": "/react/"
+      },
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/react/index.html"
+    },
+    "vanillajs": {
+      "matchCondition": {
+        "route": "/vanillajs/"
+      },
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/vanillajs/index.html"
+    },
+    "jquery": {
+      "matchCondition": {
+        "route": "/jquery/"
+      },
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/jquery/Index.html"
+    },
+    "path": {
+      "matchCondition": {
+        "route": "/{*path}"
+      },
+      "backendUri": "https://%STORAGE_HOSTNAME%/www/{path}"
     }
   }
 }

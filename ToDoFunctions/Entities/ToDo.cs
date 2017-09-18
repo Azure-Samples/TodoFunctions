@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ToDoFunctions
+namespace ToDoFunctions.Entities
 {
     public class ToDo
     {
