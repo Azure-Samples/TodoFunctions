@@ -58,22 +58,22 @@
     <None Update="www\angular2\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\angular2\bundles\angular2-polyfills.js">
+    <None Update="www\angular2\js\angular2-polyfills.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\angular2\bundles\angular2.dev.js">
+    <None Update="www\angular2\js\angular2.dev.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\rxjs\bundles\Rx.js">
+    <None Update="www\angular2\js\Rx.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\systemjs\dist\system.src.js">
+    <None Update="www\angular2\js\system.src.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\todomvc-app-css\index.css">
+    <None Update="www\angular2\css\index.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\angular2\node_modules\todomvc-common\base.css">
+    <None Update="www\angular2\css\base.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\angular2\package.json">
@@ -94,23 +94,11 @@
     <None Update="www\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\jquery\Create.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="www\jquery\History.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-    </None>
-    <None Update="www\jquery\Index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\jquery\Update.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\js\ensure-directory-trailing-slash.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -139,25 +127,25 @@
     <None Update="www\react\learn.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\classnames\index.js">
+    <None Update="www\react\js\index.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\director\build\director.js">
+    <None Update="www\react\js\director.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\react\dist\JSXTransformer.js">
+    <None Update="www\react\js\JSXTransformer.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\react\dist\react-with-addons.js">
+    <None Update="www\react\js\react-with-addons.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\todomvc-app-css\index.css">
+    <None Update="www\react\css\index.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\todomvc-common\base.css">
+    <None Update="www\react\css\base.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\react\node_modules\todomvc-common\base.js">
+    <None Update="www\react\js\base.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\vanillajs\index.html">
@@ -184,25 +172,13 @@
     <None Update="www\vanillajs\js\view.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\vanillajs\node_modules\todomvc-app-css\index.css">
+    <None Update="www\vanillajs\css\index.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\vanillajs\node_modules\todomvc-app-css\package.json">
+    <None Update="www\vanillajs\css\base.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="www\vanillajs\node_modules\todomvc-app-css\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\vanillajs\node_modules\todomvc-common\base.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\vanillajs\node_modules\todomvc-common\base.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\vanillajs\node_modules\todomvc-common\package.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="www\vanillajs\node_modules\todomvc-common\readme.md">
+    <None Update="www\vanillajs\js\base.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="www\vanillajs\package.json">
