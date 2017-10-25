@@ -4,10 +4,7 @@
 
 * API built using Azure Functions, storing data in Azure Table Storage
 * Static web content hosted in Azure Blob Storage
-* 3 Single Page Application front-ends to choose from:
-    - Angular
-    - React
-    - vanilla js (no frameworks)
+* A Single Page Application front-end using JQuery
 
 ## Microsoft Open Source Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
